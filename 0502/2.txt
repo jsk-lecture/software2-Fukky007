@@ -1,0 +1,20 @@
+/* 2.txt */
+
+---------------------------------
+def inc(x):
+    return x + 1
+
+def double(f):
+    return (lambda x : (f(f(x))))
+---------------------------------
+
+　(double(double))(inc)(0)
+→(lambda x : (double(double(x))))(inc)(0)
+→(double(double(inc))))(0)
+→ double(lambda x : inc(inc(x))))(0)
+→(lambda x : inc(inc(inc(inc(x)))))(0)
+→ incinc(inc(inc(0))))
+→ 4
+
+となり、
+(double(double))(inc)(0) は 4 となる。
