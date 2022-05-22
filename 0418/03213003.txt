@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width" />
+  <title>ITC-LMS Login</title>
+  <link href="/css/common.css" rel="stylesheet"/>
+  <link href="/css/login.css" rel="stylesheet"/>
+  <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico">
+</head>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.dependent-selects.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script>
+	//独自ユーザログインフォーム開閉用
+	$(document).ready(function() {
+		$('.switch_form').on("click",function(){
+			$('#own_auth').toggleClass('own_auth_open');
+			$(this).toggleClass('open_form');
+		})
+		//IE警告メッセージ
+		var userAgent = window.navigator.userAgent.toLowerCase();
+		var html = "";
+		var message1 = "ITC-LMS\u3067\u306F\u3001Internet Explorer\u304B\u3089\u306E\u30A2\u30AF\u30BB\u30B9\u3092\u63A8\u5968\u3057\u3066\u304A\u308A\u307E\u305B\u3093\u3002";
+		var message2 = "\u307E\u305F\u3001Internet Explorer(IE) \u306F Microsoft \u3082\u4F7F\u3046\u3053\u3068\u3092\u5371\u967A\u3060\u3068\u30A2\u30CA\u30A6\u30F3\u30B9\u3057\u3066\u3044\u308B\u305F\u3081\u3001\u4ED6\u306E\u30D6\u30E9\u30A6\u30B6\u3092\u304A\u4F7F\u3044\u304F\u3060\u3055\u3044\u3002";
+		html += '<div style="margin-top: 30px; padding: 10px; margin-bottom: 10px; border: 5px double #ff0000;"><span style="color:#ff0000; font-weight:bold;"><center>' + message1 + '<br>' + message2 + '</center></span></div>';
+		if(userAgent.indexOf('msie') != -1 ||
+			userAgent.indexOf('trident') != -1) {
+			$("#msie").replaceWith(html);
+		}
+	});
+</script>
+
+<body style="background-color:#EFFBFF; overflow-x: hidden;">
+
+	<div id="login" class="login clearfix">
+
+		<!-- ロゴ -->
+		<div class="sitelogo">
+			<img src="/img/logo.png" alt="ITC Learning Management System">
+		</div>
+
+		<div id="msie"></div>
+
+		<!-- 表示言語切り替え -->
+		<div style="text-align: right;">
+			<a href="/login?changeLangCd=en" style="padding: 10px 0px 10px 0px; font-weight: bold;">English</a>
+		</div>
+
+		<!-- 共通認証ログイン -->
+		<div id="com_auth" class="clearfix"	>
+			<div class="com_auth_btn">
+				<p>UTokyo Account ログイン</p>
+					<p></p>
+					<p></p>
+					<p></p>
+				<div class="square_button">
+					<a href="/saml/login?disco=true">ログイン</a>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<!-- 独自認証ログイン -->
+		<div id="own_auth" class="own_auth">
+			<form role="form" id="loginForm" action="/login" method="post"><input type="hidden" name="_csrf" value="0c76eb61-55ab-47d2-b73a-4afc1ecb46de"/>
+				<p class="switch_form">UTokyo Account以外のログインはこちら</p>
+				<div class="login_form">
+					<div id="dlogin">
+						<div style="color: red;">
+							<div style="padding-top: 10px"></div>
+							
+						</div>
+						
+						<div>
+							<input type="text" id="username" name="username" class="input_box" placeholder="User ID">
+						</div>
+						<div class="login_pass">
+							<input type="password" id="password" name="password" class="input_box" placeholder="Password">
+						</div>
+						<div class="square_button">
+							<a href="javascript:void(0);" onclick="document.getElementById('loginForm').submit();">ログイン</a>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<!-- 説明 -->
+		<div style="margin-top: 30px;text-align:center;">
+			<span>ITC-LMS（Information Technology Center - Learning Management System）は、</span>
+			<br>
+			<span>東京大学情報基盤センターが本学の教職員及び学生に対して提供する学習管理システムです。</span>
+		</div>
+
+		<!-- お知らせ  -->
+		<div id="information">
+			<div class="information_title">
+				<div class="information_title_txt">お知らせ</div>
+			</div>
+			<div class="info_subblock_contents">
+				<div class="infotext">
+					<span><ul style="margin-left:15px;"><li style="list-style-type:disc;"><b><span style="color:#ff0000;">  4/26(火) 10:20頃 ～ 12:00頃 の時間帯で ITC-LMS の動作が重くなる不具合が発生しておりました。</span> ご迷惑をおかけしまして大変申し訳ございませんでした。</b><br/><br/></li><li style="list-style-type:disc;"><b><span style="color:#ff0000;">当面の間、下記のメンテナンスに加え、毎日 12:10～13:00 にシステムのメンテナンスを実施いたします。</span></b> 影響としてITC-LMS のサービスの一時的な停止や中断が発生しますので、<b>作業時間帯での課題の提出、テストの受講等はお控えください。</b><br/>利用者の皆様にはご不便をお掛けしますが、ご理解とご協力をよろしくお願いいたします。<br/><br/><br/></li><li style="list-style-type:disc;">学生による受講登録を受け付けるコースの「コース TOP」画面の右上にある「受講登録」ボタンについて、UTAS 上の情報を ITC-LMS に反映する処理を行う <span style="color:#ff0000;">午前3時から約3時間は登録エラー</span>になり、受講登録ができません。それ以外の時間帯に登録してください。<br/><br/></li><li style="list-style-type:disc;">授業URLの入手にあたっては、<a href="https://utelecon-directory.adm.u-tokyo.ac.jp/" target="_blank">[東京大学オンライン講義検索システム（UTAS Lite2] </a> もご利用下さい。詳しくは <a href="https://utelecon.adm.u-tokyo.ac.jp/oc/url" target="_blank">授業URLの連絡方法（学生向け）</a> をご覧ください。<br/><br/></li><li style="list-style-type:disc;">オンライン授業のトラブルを解決するためには、[<a href="https://utelecon.adm.u-tokyo.ac.jp/" target="_blank">オンライン授業・Web会議に関するトラブルサポート窓口]</a>のチャットサポートをご利用ください。<br/><span style="color:#ff0000;">授業の入室に関してトラブルが発生</span>している場合は、担当教員あるいは [<a href="https://utelecon.adm.u-tokyo.ac.jp/oc/join#form" target="_blank">授業入室トラブル報告フォーム</a>] に連絡をしてください。<br/><br/></li><li style="list-style-type:disc;">試験に直接関係する質問や相談は、担当教員または開講学部・研究科に連絡してください。<br/><br/></li><li style="list-style-type:disc;">メンテナンスによるサービスの停止<br/>安定したサービスを提供するために、<span style="color:#ff0000;">毎日 6:00 頃</span>にシステム再起動を実施しています。また不定期にメンテナンス作業を、<span style="color:#ff0000;">火曜日の 12:15 - 13:00 </span>に実施します。 <br/>メンテナンス中には、ITC-LMS サービスの中断・停止などが発生する場合がありますのでご注意ください。<br/><span style="color:#ff0000;">作業時間帯では教材のアップロードやテストの受験等の作業は控えていただきますようお願いします。</span><br/><br/></li><li style="list-style-type:disc;">動作確認を行っているブラウザ・スマートフォン<br/><ul style="margin-left:15px;"><li style="list-style-type:disc;">Apple 社製macOS + Google Chrome<br/></li><li style="list-style-type:disc;">Apple 社製macOS + Safari<br/></li><li style="list-style-type:disc;">Apple 社製macOS + Firefox<br/></li><li style="list-style-type:disc;">Microsoft 社製Windows 10 + Google Chrome<br/></li><li style="list-style-type:disc;">Microsoft 社製Windows 10 + Firefox<br/></li><li style="list-style-type:disc;">Apple 社製iOS 14 + Safari<br/></li><li style="list-style-type:disc;">Google 社製Android 11 + Chrome<br/></li></ul><br/>※上記ブラウザの設定が「JavaScript設定：有効、Cookie：有効」となっていることを確認（設定）してください。<br/><br/></li></ul><br/></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
