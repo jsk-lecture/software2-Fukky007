@@ -1,0 +1,30 @@
+/* homework01 */
+
+・Makefileとは
+	コンパイルについての設定ファイル
+
+・Makefileの使い方
+   - Makefileの中身
+	[ターゲット名]: [依存するファイル]
+	    [コマンド]
+			
+   - Makefileの例
+	test: test1.c test2.c
+	    gcc -o test test1.c test2.c
+	      
+   - Makefileの自動変数
+      $@ : ターゲットファイル名
+      $^ : すべての依存するファイル名
+      よって、以下のMakefileは上記と同じ動きをする。
+	test: test1.c test2.c
+	    gcc -o $@ $^
+
+   - makeの実行
+	make [ターゲット名]
+
+   - makeの実行例
+        make test
+	   これを入力することで gcc -o test test1.c test2.c が実行される。
+
+
+参考) http://www.jsk.t.u-tokyo.ac.jp/~k-okada/makefile/
