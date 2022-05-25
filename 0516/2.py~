@@ -1,0 +1,14 @@
+#include <iostream>
+
+auto make_withdraw(auto init_balance){
+    auto balance = init_balance;
+    return [balance](auto amount) mutable{
+        balance -= amount;
+    }
+}
+
+int main(){
+    auto fukuda = make_withdraw(100000)
+    auto okada = make_withdraw(5000000)
+
+    std::cout << "fukuda :" << fukuda(
