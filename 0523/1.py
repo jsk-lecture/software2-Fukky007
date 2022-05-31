@@ -1,0 +1,25 @@
+def selection(num, start=0):
+    if start >= len(num):
+        return num
+    else:
+        min_i = start
+        min_val = num[start]
+        for i in range(start + 1, len(num)):
+            if num[i] < min_val:
+                min_i = i
+                min_val = num[i]
+        num[min_i] = num[start]
+        num[start] = min_val
+        return selection(num, start + 1)
+
+def bubble(num, start=0):
+    if start >= len(num):
+        return num
+    else:
+        for i in range(len(num) - start - 1):
+            if num[i] > num[i + 1]:
+                swap = num[i]
+                num[i] =  num[i + 1]
+                num[i + 1] = swap
+        return bubble(num, start + 1)
+            
