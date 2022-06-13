@@ -1,0 +1,76 @@
+>>> exec(open('informed.py').read())
+= bfs
+traverse Arad
+traverse Zerind
+traverse Timisoara
+traverse Sibiu
+traverse Oradea
+traverse Arad
+traverse Lugoj
+traverse Arad
+traverse Rimnicu_Vilcea
+traverse Fagras
+traverse Oradea
+traverse Arad
+traverse Zerind
+traverse Sibiu
+traverse Zerind
+traverse Timisoara
+traverse Sibiu
+traverse Mehadia
+traverse Timisoara
+traverse Zerind
+traverse Timisoara
+traverse Sibiu
+traverse Sibiu
+traverse Pitesti
+traverse Craiova
+traverse Sibiu
+traverse Bucharest
+found target Bucharest
+= tree_search
+traverse Arad              cost     0, depth 0
+traverse Zerind            cost    75, depth 1
+traverse Timisoara         cost   188, depth 1
+traverse Sibiu             cost   140, depth 1
+traverse Oradea            cost   146, depth 2
+traverse Arad              cost   150, depth 2
+traverse Lugoj             cost   299, depth 2
+traverse Arad              cost   306, depth 2
+traverse Rimnicu_Vilcea    cost   220, depth 2
+traverse Fagras            cost   239, depth 2
+traverse Oradea            cost   280, depth 2
+traverse Arad              cost   291, depth 2
+traverse Zerind            cost   217, depth 3
+traverse Sibiu             cost   297, depth 3
+traverse Zerind            cost   225, depth 3
+traverse Timisoara         cost   338, depth 3
+traverse Sibiu             cost   290, depth 3
+traverse Mehadia           cost   369, depth 3
+traverse Timisoara         cost   410, depth 3
+traverse Zerind            cost   381, depth 3
+traverse Timisoara         cost   494, depth 3
+traverse Sibiu             cost   446, depth 3
+traverse Sibiu             cost   300, depth 3
+traverse Pitesti           cost   317, depth 3
+traverse Craiova           cost   366, depth 3
+traverse Sibiu             cost   338, depth 3
+traverse Bucharest         cost   450, depth 3
+found target Bucharest
+['Arad', 'Sibiu', 'Fagras', 'Bucharest']
+== best first search
+traverse Arad              cost     0, depth 0
+traverse Sibiu             cost   140, depth 1
+traverse Fagras            cost   239, depth 2
+traverse Bucharest         cost   450, depth 3
+found target Bucharest
+['Arad', 'Sibiu', 'Fagras', 'Bucharest']
+== a* search
+traverse Arad              cost     0, depth 0
+traverse Sibiu             cost   140, depth 1
+traverse Rimnicu_Vilcea    cost   220, depth 2
+traverse Fagras            cost   239, depth 2
+traverse Pitesti           cost   317, depth 3
+traverse Bucharest         cost   418, depth 4
+found target Bucharest
+['Arad', 'Sibiu', 'Rimnicu_Vilcea', 'Pitesti', 'Bucharest']
