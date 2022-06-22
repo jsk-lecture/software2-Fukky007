@@ -1,0 +1,144 @@
+Fukky@mech-PC:~/software2-Fukky007/0613$ cat 1-1.c 
+#include <stdio.h>
+
+int print_bit (unsigned char s) {
+  int i;
+  printf("0x%02x : ", s);
+  for (i = 0; i < 8; i++) {
+    printf("%c", ((0x80)&s)?'1':'0');
+    s = s << 1;
+  }
+  printf("\n");
+}
+
+int main (int argc, char* argv[]) {
+  int i;
+  unsigned char u1, u2, u3;
+
+  // 学籍番号:03213003 下2桁-上2桁
+  u1 = 03;
+  printf("u1      = "); print_bit(u1);
+  printf("u1      = %d\n", u1);
+  // 2's complement
+  u2 = (0xff ^ 03) + 0x01;
+  printf("u2      = "); print_bit(u2);
+  printf("u2      = %d\n", (char)u2);
+  u3 = u1 + u2;
+  printf("u1 - u2 = ");  print_bit(u3);
+  printf("u1 - u2 = %d\n", (char)u3);
+  
+}
+Fukky@mech-PC:~/software2-Fukky007/0613$ ./1-1
+u1      = 0x03 : 00000011
+u1      = 3
+u2      = 0xfd : 11111101
+u2      = -3
+u1 - u2 = 0x00 : 00000000
+u1 - u2 = 0
+Fukky@mech-PC:~/software2-Fukky007/0613$ cat 1-2.c 
+#include <stdio.h>
+
+int print_bit (float f) {
+  int i;
+  unsigned int *j = ((unsigned int *)&f);
+  unsigned int s = *j;
+  for (i = 0; i < 32; i++) {
+    printf("%c", ((0x80000000)&s)?'1':'0');
+    if ( (i == 0) || (i == 8) ) printf(" ");
+    s = s << 1;
+  }
+  printf("\n");
+}
+
+int main (int argc, char* argv[]) {
+  float f, g, h; // 32bit, 4byte
+
+  f = 2.625;
+  printf("f = %-12f : ", f);
+  print_bit(f);
+
+  g = 2650000.0;
+  printf("g = %-12f : ", g);
+  print_bit(g);
+
+  h = f + g;
+  printf("h = %-12f : ", h);
+  print_bit(h);
+}
+Fukky@mech-PC:~/software2-Fukky007/0613$ ./1-2
+f = 2.625000     : 0 10000000 01010000000000000000000
+g = 2650000.000000 : 0 10010100 01000011011111001000000
+h = 2650002.500000 : 0 10010100 01000011011111001001010
+Fukky@mech-PC:~/software2-Fukky007/0613$ cat 1-3.c 
+#include <stdio.h>
+
+int print_byte_32 (unsigned int s) {
+  int i;
+  unsigned char *p;
+  p = (unsigned char*)&s;
+  for (i=0;i<sizeof(unsigned int);i++) {
+    printf("%02x", *p);
+    p++;
+  }
+  printf("\n");
+}
+
+int print_byte_16 (unsigned short s) {
+  int i;
+  unsigned char *p;
+  p = (unsigned char*)&s;
+  for (i=0;i<sizeof(unsigned short);i++) {
+    printf("%02x", *p);
+    p++;
+  }
+  printf("\n");
+}
+
+int print_byte_8 (unsigned char s) {
+  int i;
+  unsigned char *p;
+  p = (unsigned char*)&s;
+  for (i=0;i<sizeof(unsigned char);i++) {
+    printf("%02x", *p);
+    p++;
+  }
+  printf("\n");
+}int print_byte (unsigned int s) {
+  int i;
+  unsigned char *p;
+  p = (unsigned char*)&s;
+  for (i=0;i<sizeof(unsigned int);i++) {
+    printf("%02x", *p);
+    p++;
+  }
+  printf("\n");
+}
+
+int main (int argc, char* argv[]) {
+  unsigned int   u1; // 32bit, 4byte
+  unsigned short v1; // 16bit, 2byte
+  unsigned long  w1; // 8bit, 1byte
+
+  printf("sizeof(short) = %ld\n", sizeof(short));
+  printf("sizeof(int)   = %ld\n", sizeof(int));
+  printf("sizeof(long)  = %ld\n", sizeof(long));
+
+  u1 = 0x1a;
+  printf("u1 = %x : ", u1);
+  print_byte_8(u1);
+
+  v1 = 0x12ab;
+  printf("v1 = %x : ", v1);
+  print_byte_16(v1);
+
+  w1 = 0x1234abcd;
+  printf("w1 = %x : ", w1);
+  print_byte_32(w1);
+}
+Fukky@mech-PC:~/software2-Fukky007/0613$ ./1-3
+sizeof(short) = 2
+sizeof(int)   = 4
+sizeof(long)  = 8
+u1 = 1a : 1a
+v1 = 12ab : ab12
+w1 = 1234abcd : cdab3412
