@@ -1,0 +1,136 @@
+Fukky@mech-PC:~/software2-Fukky007/0620$ cat 3.py
+#!/usr/bin/env python
+
+import time
+import threading
+
+# test-thread.py
+
+shared_resource = 0
+
+def task(loop):
+    global shared_resource
+    for i in range(loop):
+        print("Thread {}: i:{}, shared_resource:{}".format(
+            threading.current_thread().ident, i, shared_resource))
+        #shared_resource = shared_resource + 1
+        for j in range(10000):
+            tmp = shared_resource
+            tmp = tmp + 1
+            time.sleep(1/1000000.0)
+            shared_resource = tmp
+        time.sleep(10.0/loop)
+
+thread1 = threading.Thread(target=task, args=([10]))
+thread2 = threading.Thread(target=task, args=([20]))
+thread1.start()
+thread2.start()
+
+thread1.join()
+thread2.join()
+print("shared_resource {}".format(shared_resource))
+
+
+Fukky@mech-PC:~/software2-Fukky007/0620$ ./3.py
+Thread 140387382593280: i:0, shared_resource:0
+Thread 140387374200576: i:0, shared_resource:0
+Thread 140387374200576: i:1, shared_resource:10003
+Thread 140387382593280: i:1, shared_resource:17810
+Thread 140387374200576: i:2, shared_resource:27811
+Thread 140387382593280: i:2, shared_resource:37811
+Thread 140387374200576: i:3, shared_resource:40034
+Thread 140387374200576: i:4, shared_resource:50035
+Thread 140387382593280: i:3, shared_resource:55663
+Thread 140387374200576: i:5, shared_resource:65668
+Thread 140387382593280: i:4, shared_resource:75668
+Thread 140387374200576: i:6, shared_resource:80120
+Thread 140387374200576: i:7, shared_resource:90121
+Thread 140387382593280: i:5, shared_resource:93739
+Thread 140387374200576: i:8, shared_resource:103733
+Thread 140387382593280: i:6, shared_resource:113733
+Thread 140387374200576: i:9, shared_resource:120250
+Thread 140387374200576: i:10, shared_resource:130259
+Thread 140387382593280: i:7, shared_resource:131547
+Thread 140387374200576: i:11, shared_resource:141557
+Thread 140387382593280: i:8, shared_resource:150683
+Thread 140387374200576: i:12, shared_resource:159370
+Thread 140387382593280: i:9, shared_resource:169371
+Thread 140387374200576: i:13, shared_resource:170149
+Thread 140387374200576: i:14, shared_resource:180146
+Thread 140387374200576: i:15, shared_resource:190146
+Thread 140387374200576: i:16, shared_resource:200146
+Thread 140387374200576: i:17, shared_resource:210146
+Thread 140387374200576: i:18, shared_resource:220146
+Thread 140387374200576: i:19, shared_resource:230146
+shared_resource 240146
+
+
+Fukky@mech-PC:~/software2-Fukky007/0620$ cat 3_lock.py
+#!/usr/bin/env python
+
+import time
+import threading
+
+# test-thread.py
+
+shared_resource = 0
+
+lock = threading.Lock()
+
+def task(loop):
+    global shared_resource
+    for i in range(loop):
+        print("Thread {}: i:{}, shared_resource:{}".format(
+            threading.current_thread().ident, i, shared_resource))
+        #shared_resource = shared_resource + 1
+        for j in range(10000):
+            lock.acquire()
+            tmp = shared_resource
+            tmp = tmp + 1
+            time.sleep(1/1000000.0)
+            shared_resource = tmp
+            lock.release()
+        time.sleep(10.0/loop)
+
+thread1 = threading.Thread(target=task, args=([10]))
+thread2 = threading.Thread(target=task, args=([20]))
+thread1.start()
+thread2.start()
+
+thread1.join()
+thread2.join()
+print("shared_resource {}".format(shared_resource))
+
+
+Fukky@mech-PC:~/software2-Fukky007/0620$ ./3_lock.py
+Thread 139996922304256: i:0, shared_resource:0
+Thread 139996913911552: i:0, shared_resource:1
+Thread 139996913911552: i:1, shared_resource:20000
+Thread 139996922304256: i:1, shared_resource:30000
+Thread 139996913911552: i:2, shared_resource:36998
+Thread 139996922304256: i:2, shared_resource:50000
+Thread 139996913911552: i:3, shared_resource:50885
+Thread 139996913911552: i:4, shared_resource:70000
+Thread 139996922304256: i:3, shared_resource:74127
+Thread 139996913911552: i:5, shared_resource:90000
+Thread 139996922304256: i:4, shared_resource:100000
+Thread 139996913911552: i:6, shared_resource:103412
+Thread 139996913911552: i:7, shared_resource:120000
+Thread 139996922304256: i:5, shared_resource:122291
+Thread 139996913911552: i:8, shared_resource:140000
+Thread 139996922304256: i:6, shared_resource:149764
+Thread 139996913911552: i:9, shared_resource:158788
+Thread 139996922304256: i:7, shared_resource:170000
+Thread 139996913911552: i:10, shared_resource:170823
+Thread 139996913911552: i:11, shared_resource:190000
+Thread 139996922304256: i:8, shared_resource:194527
+Thread 139996913911552: i:12, shared_resource:210000
+Thread 139996922304256: i:9, shared_resource:220000
+Thread 139996913911552: i:13, shared_resource:225473
+Thread 139996913911552: i:14, shared_resource:240000
+Thread 139996913911552: i:15, shared_resource:250000
+Thread 139996913911552: i:16, shared_resource:260000
+Thread 139996913911552: i:17, shared_resource:270000
+Thread 139996913911552: i:18, shared_resource:280000
+Thread 139996913911552: i:19, shared_resource:290000
+shared_resource 300000
