@@ -27,3 +27,18 @@ my_or(A,B,C) :- my_not(A, X), my_not(B, Y), nand(X,Y,C,_).
 
 % ?- and(A-B-0).
 
+main1:-
+    write('nand(A,B,C,X). -> '),nl,
+    nand(A,B,C,X),write(A),write(' '),write(B),write(' '),write(C),write(' '),write(X),write(' '),nl,fail.
+
+main2:-
+    write('and(A-B-0). -> '),nl,
+    and(A-B-0),write(A-B-0),nl,fail.
+
+main3:-
+    write('and(A-B-1). -> '),nl,
+    and(A-B-1),write(A-B-1),nl,fail.
+
+main:-
+    main1;main2;main3.
+

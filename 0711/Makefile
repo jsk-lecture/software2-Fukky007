@@ -1,4 +1,4 @@
-all: like like2 sazae append 8queen map
+all: like like2 sazae append 8queen map logic
 	echo "DONE"
 
 %.pl %:
