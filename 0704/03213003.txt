@@ -1,0 +1,32 @@
+/* 03213003.txt */
+
+
+--- GitHub issue ---
+
+共有が必要な事項をスレッド形式で立てられる機能のこと
+同リポジトリに属するメンバーなら誰でもissueの作成・コメント・削除が可能
+issueはマークダウンを使って書く
+
+参考）https://atmarkit.itmedia.co.jp/ait/articles/1407/28/news006.html
+
+
+
+--- GitHub Pull Request ---
+
+開発者のローカルリポジトリでの変更を他の開発者に通知する機能のこと
+
+＜流れ＞
+
+開発者:
+	1.ローカルリポジトリで作業
+	2.push
+	3.プルリクエストの作成
+
+レビュー・マージ担当者:
+	4.レビュー
+	5.修正が必要かどうか判断
+		- 修正が必要 --> 開発者に再作業を依頼(1.に戻る)
+		- 修正が不要 --> marge
+		- pull request自体が不要 --> クローズ
+
+参考）https://backlog.com/ja/git-tutorial/pull-request/03/
